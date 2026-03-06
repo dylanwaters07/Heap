@@ -5,9 +5,9 @@ const int HEAPSIZE = 100;
 class heap{
     
     public: //=======
-     Heap(){size=0;}
+     heap(){size=0;}
      
-     void heapBuild(int arr[], int num); // Build from array
+     void heapBuild(); // Build from array
      void heapFileBuild(const char* filename); // Read from file
      
      void add(int num); // Add number to tree
