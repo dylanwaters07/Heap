@@ -1,5 +1,8 @@
 #include <iostream>
 #include "heap.h"
+#include <fstream>
+#include <cstring>
+#include <sstream>
 
 using namespace std;
 
@@ -9,20 +12,59 @@ void heap::add(int num){
     if (size >= HEAPSIZE){ // Stop adding if array is at max numbers
         return;
     }
-    
-    
-    
 }
 
 void heap::heapBuild(){
-   /*for(...logic){
-       restructHeap(i); // Structure the numbers
-   }*/
+    int numamount;
+    cout << "How many numbers would you like to enter?: ";
+    cin >> numamount;
+    
+    for(int i = 0; i < numamount; i++){
+        int number;
+        cout << "Enter number: ";
+        cin >> number;
+        
+        arr[size] = number;
+        size++;
+        
+        for(int i = size/2 - 1; i >= 0; i--){  // start from middle, go backwards
+            restructHeap(i);
+        }
+    }
 }
 
-void heap::heapFileBuild(const char* filename){
+//https://www.geeksforgeeks.org/cpp/getline-string-c/
+void heap::heapFileBuild(string filename){
     cout << "Building from file" << endl;
+    
+    string file = filename + ".txt";
+    ifstream myFile(file);
+
+    string numbers;
+    getline(myFile, numbers); // Read
+    
+    for(int i = 0; i < numbers.size(); i++){
+        if(ispunct(numbers[i])){
+            numbers[i] = ' ';
+        }
+    }
+    
+    stringstream stream(numbers);
+    int value;
+    while(stream >> value){
+        arr[size] = value;
+        size++;
+        cout << value << " ";
+    }
+    cout << endl;
+    
+    for(int i = size/2 - 1; i >= 0; i--){  // start from middle, go backwards
+        restructHeap(i);
+    }
+    
+    myFile.close();
 }
+
 
 void heap::clearMax(){
   if (size == 0){
@@ -31,6 +73,10 @@ void heap::clearMax(){
   arr[0] = arr[size-1];
   size = (size-1); // Set num -1 since we lost a number.
   restructHeap(0); // Run restruct
+}
+
+void heap::clearAll(){
+    size = 0; // Removes access and resets size
 }
 
 //https://www.geeksforgeeks.org/dsa/insertion-and-deletion-in-heaps/
@@ -52,5 +98,8 @@ void heap::restructHeap(int i){
 }
 
 void heap::print(int i){
-    cout << "Printing" << endl;
+    for(int i = 0; i < size; i++){
+        cout << arr[i] << " ";
+    }
+    cout << endl;
 }
