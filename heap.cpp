@@ -7,12 +7,12 @@
 using namespace std;
 
 //https://www.geeksforgeeks.org/cpp/implement-heap-in-c/
-// Used for insert logic
-void heap::add(int num){
+/*void heap::add(int num){
     if (size >= HEAPSIZE){ // Stop adding if array is at max numbers
+        cout << "At max!" << endl;
         return;
     }
-}
+}*/
 
 void heap::heapBuild(){
     int numamount;
@@ -65,7 +65,6 @@ void heap::heapFileBuild(string filename){
     myFile.close();
 }
 
-
 void heap::clearMax(){
   if (size == 0){
       return;
@@ -76,7 +75,16 @@ void heap::clearMax(){
 }
 
 void heap::clearAll(){
-    size = 0; // Removes access and resets size
+    //size = 0; // Removes access and resets size (Oops the lazy way...)
+    //Use a for loop to iterate removing the max until nothing is left
+    for(int i=0; i < size; i--){
+        if (size == 0){
+            return;
+        }
+        arr[0] = arr[size-1];
+        size = (size-1); // Set num -1 since we lost a number.
+        restructHeap(0); // Run restruct
+    }
 }
 
 //https://www.geeksforgeeks.org/dsa/insertion-and-deletion-in-heaps/
@@ -101,5 +109,6 @@ void heap::print(int i){
     for(int i = 0; i < size; i++){
         cout << arr[i] << " ";
     }
+    cout << "\n\n" << "Amount of numbers: " << size << endl; // Check to see it cuts off at 100.
     cout << endl;
 }
