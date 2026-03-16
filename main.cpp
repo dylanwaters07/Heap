@@ -72,10 +72,11 @@ void heapremove(){
 }
 
 void heapprint(){
-    
-    cout << "Heap Printing" << endl;
+    cout << "Heap (sideways tree):" << endl;
+    h.printTree(0, 0);
+
+    cout << "\nArray form:" << endl;
     h.print(0);
-    
 }
 
 int main()
