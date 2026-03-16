@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "heap.h"
 
 using namespace std;
@@ -26,12 +27,23 @@ void heapadd(){
             h.heapBuild();
         }
         else if (choice == 2){
-            addcheck = false;
             char numbers[100];
 	        cout << "What is your filename (x.txt)?:";
 	        string filename;
 	        cin >> filename;
-	        h.heapFileBuild(filename);
+	        
+	        // https://www.geeksforgeeks.org/cpp/std-ifstream-isopen-in-cpp/
+            string file = filename + ".txt";
+            ifstream myFile(file);
+	        if (myFile.is_open()){
+	               h.heapFileBuild(filename);
+	               addcheck = false;
+	               //filecheck = false;
+	        }
+	        else{
+	           cout << "Filename doesnt exist" << endl;
+	           return;
+	        }
         }
         else{
             cout << "Numbers 1-2 only" << endl;
@@ -53,17 +65,17 @@ void heapremove(){
     while (removecheck){
         int choice;
         cout << "What is your choice?: ";
-        cin >> choice; 
+        cin >> choice;
         
         if (choice == 1){
             removecheck = false;
             cout << "Removing max" << endl;
-            h.clearMax();
+            h.clearMax(); // Runs clearmax to remove head
         }
         else if (choice == 2){
             removecheck = false;
             cout << "Removing all" << endl;
-            h.clearAll();
+            h.clearAll(); // Runs the clearAll which runs clearMax for i.
         }
         else{
             cout << "Numbers 1-2 only" << endl;
@@ -73,10 +85,10 @@ void heapremove(){
 
 void heapprint(){
     cout << "Heap (sideways tree):" << endl;
-    h.printTree(0, 0);
+    h.printTree(0, 0); // index and depth starts at 0 and calls the printTree function.
 
     cout << "\nArray form:" << endl;
-    h.print(0);
+    h.print(0); // Prints array and amount of numbers. Starts from arr[0]
 }
 
 int main()
@@ -98,18 +110,18 @@ int main()
     cin >> choice;
 
     if (choice == 1){
-      heapadd();
+      heapadd(); // Add function
     }
     else if (choice == 2){
-      heapremove();
+      heapremove(); // Remove function
     }
     else if (choice == 3){
-      heapprint();
+      heapprint(); // Print function
     }
     else if (choice == 4){
-      running = false;
+      running = false; // Quits
     }
-    else{
+    else{ 
       cout << "Invalid input. Numbers 1-4 only." << endl;
     }
   }
