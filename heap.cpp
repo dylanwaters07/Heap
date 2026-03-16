@@ -6,14 +6,6 @@
 
 using namespace std;
 
-//https://www.geeksforgeeks.org/cpp/implement-heap-in-c/
-/*void heap::add(int num){
-    if (size >= HEAPSIZE){ // Stop adding if array is at max numbers
-        cout << "At max!" << endl;
-        return;
-    }
-}*/
-
 void heap::heapBuild(){
     int numamount;
     cout << "How many numbers would you like to enter?: ";
@@ -109,6 +101,27 @@ void heap::print(int i){
     for(int i = 0; i < size; i++){
         cout << arr[i] << " ";
     }
-    cout << "\n\n" << "Amount of numbers: " << size << endl; // Check to see it cuts off at 100.
+    cout << "\n\n" << "Amount of numbers: " << size << endl;
     cout << endl;
+}
+
+void heap::printTree(int curIndex, int depth){
+    if (curIndex >= size) return;
+
+    int right = curIndex * 2 + 2;
+    int left  = curIndex * 2 + 1;
+
+    if (right < size){
+        printTree(right, depth + 1);
+    }
+
+    for (int i = 0; i < depth; i++){
+        cout << "   "; // swapped to spaces instead of \t 
+    }                  // due to odd spacing
+
+    cout << arr[curIndex] << endl;
+
+    if (left < size){
+        printTree(left, depth + 1);
+    }
 }
