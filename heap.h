@@ -20,6 +20,8 @@ class heap{
      void clearAll(); // Remove all numbers
      
      void print(int i); // Print out tree
+     void printTree(int curIndex, int depth);
+     
     private: //=======
      int arr[HEAPSIZE];
      int size;
