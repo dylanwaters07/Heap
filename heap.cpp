@@ -9,18 +9,18 @@ using namespace std;
 void heap::heapBuild(){
     int numamount;
     cout << "How many numbers would you like to enter?: ";
-    cin >> numamount;
+    cin >> numamount; // Will print enter number for amount you want to add.
     
     for(int i = 0; i < numamount; i++){
         int number;
         cout << "Enter number: ";
-        cin >> number;
+        cin >> number; // Enters and adds
         
         arr[size] = number;
-        size++;
+        size++; // Increases arr size
         
         for(int i = size/2 - 1; i >= 0; i--){  // start from middle, go backwards
-            restructHeap(i);
+            restructHeap(i); // Logic to restructure
         }
     }
 }
@@ -30,35 +30,35 @@ void heap::heapFileBuild(string filename){
     cout << "Building from file" << endl;
     
     string file = filename + ".txt";
-    ifstream myFile(file);
+    ifstream myFile(file); // Reads from file provided
 
     string numbers;
     getline(myFile, numbers); // Read
     
     for(int i = 0; i < numbers.size(); i++){
-        if(ispunct(numbers[i])){
-            numbers[i] = ' ';
+        if(ispunct(numbers[i])){ // Use an ispunct to remove commas
+            numbers[i] = ' '; // Add back
         }
     }
     
     stringstream stream(numbers);
     int value;
-    while(stream >> value){
+    while(stream >> value){ // if arr is greater than value
         arr[size] = value;
-        size++;
+        size++; // add size
         cout << value << " ";
     }
     cout << endl;
     
     for(int i = size/2 - 1; i >= 0; i--){  // start from middle, go backwards
-        restructHeap(i);
+        restructHeap(i); // Restruct
     }
     
-    myFile.close();
+    myFile.close(); // Close file
 }
 
 void heap::clearMax(){
-  if (size == 0){
+  if (size == 0){ // If there is nothing in arr, return.
       return;
   }
   arr[0] = arr[size-1];
@@ -85,6 +85,7 @@ void heap::restructHeap(int i){
   int left = 2*i+1;
   int right = 2*i+2;
   
+  // Used logic from source to find left, right.
   if (left < size && arr[left] > arr[largest]){
         largest = left;
   }
@@ -97,16 +98,16 @@ void heap::restructHeap(int i){
   }
 }
 
-void heap::print(int i){
-    for(int i = 0; i < size; i++){
+void heap::print(int i){ // Prints arr of numbers
+    for(int i = 0; i < size; i++){ // For loop to print out array of numbers.
         cout << arr[i] << " ";
     }
     cout << "\n\n" << "Amount of numbers: " << size << endl;
     cout << endl;
 }
 
-void heap::printTree(int curIndex, int depth){
-    if (curIndex >= size) return;
+void heap::printTree(int curIndex, int depth){ // Prints sideways tree
+    if (curIndex >= size) return;              // Based off Mr.Galbraiths whiteboard example
 
     int right = curIndex * 2 + 2;
     int left  = curIndex * 2 + 1;
