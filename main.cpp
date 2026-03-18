@@ -1,3 +1,10 @@
+// Dylan Waters
+//
+// Heap (3/16/26)
+//
+// Description: Input an amount of numbers and print out ordered in a heap tree.
+
+
 #include <iostream>
 #include <fstream>
 #include "heap.h"
